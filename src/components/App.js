@@ -38,6 +38,27 @@ function App() {
         setHosts(updatedHosts)
       })
   }
+  const handleActiveChange = (id, active) => {
+    const objectData = {
+      active: active
+    }
+    const configObj = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(objectData)
+    }
+    fetch(`${URLHosts}${id}`, configObj)
+      .then(r => r.json())
+      .then(data => {
+        const updatedHosts = hosts.map(host => {
+          if (host.id === data.id) return data
+          else return host
+        })
+        setHosts(updatedHosts)
+      })
+  }
 
   const handleHostClick = (host) => {
     setSelectedHost(host)
@@ -52,6 +73,7 @@ function App() {
       />
       <Headquarters
         hosts={hosts}
+        onActiveChange={handleActiveChange}
         onCurrentAreaChange={handleCurrentAreaChange}
         onHostClick={handleHostClick}
         selectedHost={selectedHost}

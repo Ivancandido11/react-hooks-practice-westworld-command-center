@@ -10,12 +10,7 @@ import {
 } from "semantic-ui-react";
 import "../stylesheets/HostInfo.css";
 
-function HostInfo({ host, onCurrentAreaChange }) {
-  // This state is just to show how the dropdown component works.
-  // Options have to be formatted in this way (array of objects with keys of: key, text, value)
-  // Value has to match the value in the object to render the right text.
-
-  // IMPORTANT: But whether it should be stateful or not is entirely up to you. Change this component however you like.
+function HostInfo({ host, onActiveChange, onCurrentAreaChange }) {
   const [options] = useState([
     { key: "high_plains", text: "High Plains", value: "high_plains" },
     { key: "lowlands", text: "Lowlands", value: "lowlands" },
@@ -25,6 +20,7 @@ function HostInfo({ host, onCurrentAreaChange }) {
     { key: "badlands", text: "Badlands", value: "badlands" },
   ]);
   const [value, setValue] = useState(host.area)
+  const [isActive, setIsActive] = useState(host.active)
 
   function handleOptionChange(e, { value }) {
     const newArea = {
@@ -35,7 +31,8 @@ function HostInfo({ host, onCurrentAreaChange }) {
   }
 
   function handleRadioChange() {
-    console.log("The radio button fired");
+    setIsActive(isActive => !isActive)
+    onActiveChange(host.id, !isActive)
   }
 
   return (
@@ -58,11 +55,11 @@ function HostInfo({ host, onCurrentAreaChange }) {
               <br />
               <Radio
                 onChange={handleRadioChange}
-                label={host.active}
-                checked={host.active}
+                label={isActive}
+                checked={isActive}
                 slider
               />
-              {host.active ? "Active" : "Decomissioned"}
+              {isActive ? "Active" : "Decomissioned"}
             </Card.Meta>
             <Divider />
             Current Area:

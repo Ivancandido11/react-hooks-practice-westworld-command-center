@@ -6,7 +6,7 @@ import "../stylesheets/Headquarters.css";
 import ColdStorage from "./ColdStorage"
 import LogPanel from "./LogPanel"
 
-function Headquarters({ hosts, onCurrentAreaChange, onHostClick, selectedHost }) {
+function Headquarters({ hosts, onActiveChange, onCurrentAreaChange, onHostClick, selectedHost }) {
   const hostsToDisplay = hosts.filter(host => host.active === false)
   return (
     <Grid celled="internally">
@@ -19,6 +19,7 @@ function Headquarters({ hosts, onCurrentAreaChange, onHostClick, selectedHost })
       <Grid.Column width={5}>
         <Details 
           host={selectedHost}
+          onActiveChange={onActiveChange}
           onCurrentAreaChange={onCurrentAreaChange}
         />
       </Grid.Column>

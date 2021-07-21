@@ -3,12 +3,13 @@ import HostInfo from "./HostInfo"
 import { Segment, Image } from "semantic-ui-react"
 import * as Images from "../services/Images"
 
-function Details({ host, onCurrentAreaChange }) {
+function Details({ host, onActiveChange, onCurrentAreaChange }) {
   return (
     <Segment id="details" className="HQComps">
       {!!host.id ? 
       <HostInfo 
         host={host}
+        onActiveChange={onActiveChange}
         onCurrentAreaChange={onCurrentAreaChange}
       /> : 
       <Image 
