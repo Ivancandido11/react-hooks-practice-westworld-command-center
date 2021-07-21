@@ -9,7 +9,6 @@ function Host({ host, onHostClick }) {
     setIsSelected(isSelected => !isSelected)
     onHostClick(host)
   }
-  /* NOTE: The className "host selected" renders a different style than simply "host". */
   return (
     <Card
       className={isSelected ? "host selected" : "host"}

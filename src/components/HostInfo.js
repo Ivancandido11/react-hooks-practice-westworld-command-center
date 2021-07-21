@@ -10,7 +10,7 @@ import {
 } from "semantic-ui-react";
 import "../stylesheets/HostInfo.css";
 
-function HostInfo({ host, onActiveChange, onCurrentAreaChange }) {
+function HostInfo({ change, host, onActiveChange, onCurrentAreaChange }) {
   const [options] = useState([
     { key: "high_plains", text: "High Plains", value: "high_plains" },
     { key: "lowlands", text: "Lowlands", value: "lowlands" },
@@ -27,7 +27,9 @@ function HostInfo({ host, onActiveChange, onCurrentAreaChange }) {
       area: value
     }
     onCurrentAreaChange(host.id, newArea)
-    setValue(value)
+    if (change) {
+      setValue(value)
+    }
   }
 
   function handleRadioChange() {
