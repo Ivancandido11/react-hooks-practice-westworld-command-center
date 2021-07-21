@@ -1,18 +1,39 @@
 import React from "react";
+import Host from "./Host";
 import "../stylesheets/Area.css";
 
-function Area() {
+function Area(props) {
+  const capitalize = (name) => {
+    const nameWithSpaces = name.replace("_"," ")
+    const arrayOfNames = nameWithSpaces.split(" ")
+    const arrayOfNamesCased = []
+
+    for (let i = 0; i < arrayOfNames.length; i++) {
+      const word = arrayOfNames[i];
+      arrayOfNamesCased.push(word[0].toUpperCase() + word.slice(1).toLowerCase());
+    }
+    return arrayOfNamesCased.join(" ")
+  }
+  const cleanedName = capitalize(props.name)
+  const hostsToDisplay = props.hosts.filter(host => host.active === true)
+
   return (
     <div
       className="area"
-      id={
-        /* Pass in the area name here to make sure this is styled correctly */ "id"
-      }
+      id={props.name}
     >
       <h3 className="labels">
-        {/* Don't just pass in the name from the data...clean that thing up */}
+        {cleanedName}
       </h3>
-      {/* See Checkpoint 1 item 2 in the Readme for a clue as to what goes here */}
+      <div >
+      {hostsToDisplay.map(host => 
+        <Host 
+          host={host}
+          key={host.id}
+          onHostClick={props.onHostClick}
+        />)
+      }
+      </div>
     </div>
   );
 }

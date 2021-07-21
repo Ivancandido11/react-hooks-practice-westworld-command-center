@@ -3,15 +3,27 @@ import { Grid } from "semantic-ui-react";
 import Details from "./Details";
 import "../stylesheets/Headquarters.css";
 
-function Headquarters() {
+import ColdStorage from "./ColdStorage"
+import LogPanel from "./LogPanel"
+
+function Headquarters({ hosts, onCurrentAreaChange, onHostClick, selectedHost }) {
+  const hostsToDisplay = hosts.filter(host => host.active === false)
   return (
     <Grid celled="internally">
-      <Grid.Column width={8}>{/* Something goes here.... */}</Grid.Column>
+      <Grid.Column width={8}>
+        <ColdStorage
+          hosts={hostsToDisplay}
+          onHostClick={onHostClick}
+        />
+      </Grid.Column>
       <Grid.Column width={5}>
-        <Details />
+        <Details 
+          host={selectedHost}
+          onCurrentAreaChange={onCurrentAreaChange}
+        />
       </Grid.Column>
       <Grid.Column width={3}>
-        {/* and here. Take visual cues from the screenshot/video in the Readme. */}
+        <LogPanel />
       </Grid.Column>
     </Grid>
   );
